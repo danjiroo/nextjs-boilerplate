@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export interface IUseAuthReturnType {
   login: () => void;
@@ -7,6 +8,7 @@ export interface IUseAuthReturnType {
 }
 
 export const useAuth = (): IUseAuthReturnType => {
+  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -20,11 +22,13 @@ export const useAuth = (): IUseAuthReturnType => {
   const login = () => {
     document.cookie = 'isAuthenticated=true; path=/;';
     setIsAuthenticated(true);
+    router.push('/');
   };
 
   const logout = () => {
     document.cookie = 'isAuthenticated=false; path=/;';
     setIsAuthenticated(false);
+    router.push('/');
   };
 
   return {
