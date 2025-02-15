@@ -1,11 +1,12 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { ProtectedRoute } from '@/hoc/ProtectedRoute';
 
 const Home: React.FC = () => {
   return (
-    <div className="w-full h-dvh flex items-center justify-center">
-      One moment...
+    <div>
+      <Button>Test Button</Button>
     </div>
   );
 };

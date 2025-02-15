@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { MailIcon, UserIcon, LockIcon } from 'lucide-react';
+import Link from 'next/link';
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -104,9 +105,19 @@ const Signup: React.FC = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Register</Button>
+            <Button type="submit" className="w-full">
+              Register
+            </Button>
           </form>
         </Form>
+        <CardContent className="p-6 text-center">
+          <p>
+            Already registered?{' '}
+            <Link href={'/login'} className="text-primary font-bold">
+              Login with your account
+            </Link>
+          </p>
+        </CardContent>
       </CardContent>
     </Card>
   );

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { FlameIcon, ActivityIcon, UserIcon, LockIcon } from 'lucide-react';
+import Link from 'next/link';
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,6 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { useAuth } from '@/hooks/use-auth';
 
 const formSchema = z.object({
   username: z.string().nonempty('Username is required.').min(6, {
@@ -27,6 +29,8 @@ const formSchema = z.object({
 });
 
 const Login: React.FC = () => {
+  const { login } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,7 +61,7 @@ const Login: React.FC = () => {
       </CardContent>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="username"
@@ -92,9 +96,19 @@ const Login: React.FC = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Login</Button>
+            <Button type="submit" className="w-full" onClick={login}>
+              Login
+            </Button>
           </form>
         </Form>
+        <CardContent className="p-6 text-center">
+          <p>
+            Don't have an account?{' '}
+            <Link href={'/signup'} className="text-primary font-bold">
+              Create an account
+            </Link>
+          </p>
+        </CardContent>
       </CardContent>
     </Card>
   );
